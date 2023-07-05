@@ -20,6 +20,7 @@ function divide(a, b) {
 let firstNum = 0;
 let secondNum = 0;
 let operator = 0;
+let display = 0;
 
 function operate(firstNum, secondNum, operator) {
     switch (operator) {
@@ -40,3 +41,4 @@ function operate(firstNum, secondNum, operator) {
             break;
     }
 }
+
