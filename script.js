@@ -30,7 +30,7 @@ function operate(firstNum, secondNum, operator) {
         case '-':
             return subtract(firstNum, secondNum);
             break;
-        case '*':
+        case 'x':
             return multiply(firstNum, secondNum);
             break;
         case '/':
@@ -60,12 +60,15 @@ function updateDisplay(input) {
             break;
         case '-':
             operator = '-';
+            makeFirstNum();
             break;
         case 'x':
             operator = 'x';
+            makeFirstNum();
             break;
         case '/':
             operator = '/';
+            makeFirstNum();
             break;
         case 'C':
             clear();
@@ -80,7 +83,8 @@ function updateDisplay(input) {
             backspace();
             break;
         case '=':
-            calculate(firstNum, secondNum, operator);
+            makeSecondNum();
+            displayResult(firstNum, secondNum, operator);
             break;
         case '.':
             decimal();
@@ -122,4 +126,12 @@ function backspace() {
 function makeFirstNum() {
     firstNum = parseFloat(display.innerText);
     display.innerText = '0';
+}
+
+function makeSecondNum() {
+    secondNum = parseFloat(display.innerText);
+}
+
+function displayResult(firstNum, secondNum, operator) {
+    display.innerText = operate(firstNum, secondNum, operator);
 }
