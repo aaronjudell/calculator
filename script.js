@@ -21,6 +21,8 @@ let firstNum = 0;
 let secondNum = 0;
 let operator = 0;
 let displayNum = 0;
+let solution = 0;
+let equals = false;
 
 function operate(firstNum, secondNum, operator) {
     switch (operator) {
@@ -55,20 +57,67 @@ keys.forEach(key => {
 function updateDisplay(input) {
     switch (input) {
         case '+':
+            if (operator != 0 && !equals) {
+                makeSecondNum();
+                displayResult(firstNum, secondNum, operator);
+                firstNum = solution;
+                operator = '+'
+                equals = true;
+            }
+            else if (equals) {
+                operator = '+';
+            }
+            else {
             operator = '+';
             makeFirstNum();
+            }
             break;
         case '-':
+            if (operator != 0 && !equals) {
+                makeSecondNum();
+                displayResult(firstNum, secondNum, operator);
+                firstNum = solution;
+                operator = '-';
+                equals = true;
+            }
+            else if (equals) {
+                operator = '-';
+            }
+            else {
             operator = '-';
             makeFirstNum();
+            }
             break;
         case 'x':
+            if (operator != 0 && !equals) {
+                makeSecondNum();
+                displayResult(firstNum, secondNum, operator);
+                firstNum = solution;
+                operator = 'x';
+                equals = true;
+            }
+            else if (equals) {
+                operator = 'x';
+            }
+            else {
             operator = 'x';
             makeFirstNum();
+            }
             break;
         case '/':
+            if (operator != 0 && !equals) {
+                makeSecondNum();
+                displayResult(firstNum, secondNum, operator);
+                firstNum = solution;
+                operator = '/'
+            }
+            else if (equals) {
+                operator = '/';
+            }
+            else {
             operator = '/';
             makeFirstNum();
+            }
             break;
         case 'C':
             clear();
@@ -85,16 +134,23 @@ function updateDisplay(input) {
         case '=':
             makeSecondNum();
             displayResult(firstNum, secondNum, operator);
+            equals = true;
             break;
         case '.':
             decimal();
+            equals = false;
             break;
         default:
+            if (solution != 0) {
+                solution = 0;
+                display.innerText = solution;
+            }
             if (display.innerText !== '0') {
                 display.innerText += input;
                 break;
             }
             display.innerText = input;
+            equals = false;
             break;
     }
 }
@@ -110,10 +166,15 @@ function decimal() {
 function clear() {
     operator = 0;
     firstNum = 0;
+    secondNum = 0;
+    solution = 0;
     display.innerText = '0';
 }
 
 function backspace() {
+    if (solution != 0) {
+        return;
+    }
     let string = display.innerText;
     if (string.length > 1 && string != '0') {
         display.innerText = string.slice(0, -1);
@@ -124,14 +185,24 @@ function backspace() {
 }
 
 function makeFirstNum() {
+    if (firstNum != 0) {
+        makeSecondNum();
+        displayResult(firstNum, secondNum, operator);
+        return;
+    }
     firstNum = parseFloat(display.innerText);
     display.innerText = '0';
 }
 
 function makeSecondNum() {
+    if (equals) {
+        return;
+    }
     secondNum = parseFloat(display.innerText);
 }
 
-function displayResult(firstNum, secondNum, operator) {
-    display.innerText = operate(firstNum, secondNum, operator);
+function displayResult(a, b, operator) {
+    solution = operate(a, b, operator);
+    display.innerText = solution;
+    firstNum = parseFloat(solution);
 }
