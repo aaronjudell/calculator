@@ -17,8 +17,13 @@ body {
 #calcContainer {
     display: flex;
     flex-direction: column;
-    width: 50%;
-    height: 800px;
+    min-width: 500px;
+    height: 100%;
+    border: 5px solid black;
+    margin-bottom: 100px;
+    border-radius: 25px;
+    padding: 25px;
+    background-color:azure
 }
 
 #display {
@@ -26,11 +31,16 @@ body {
     width: 100%;
     font-size: 100px;
     background-color: #f0f0f0;
+    border: 1px solid black;
+    box-sizing:border-box;
 }
 
 #keys {
     display: flex;
     flex-direction: column;
+    width: 100%;
+    border: 1px solid black;
+    box-sizing: border-box;
 }
 
 .row {
@@ -38,12 +48,13 @@ body {
 }
 
 .key {
-    display: flex;
     flex-basis: 25%;
     box-sizing: border-box;
     justify-content: center;
     align-items: center;
     flex-grow: 0;
+    flex-shrink: 0;
     height: 80px;
+    width: 50px;
     font-size: 50px;
 }
