@@ -22,6 +22,7 @@ let secondNum = 0;
 let operator = 0;
 let displayNum = 0;
 let solution = 0;
+let sign = '+';
 let equals = false;
 
 function operate(firstNum, secondNum, operator) {
@@ -145,11 +146,16 @@ function updateDisplay(input) {
                 solution = 0;
                 display.innerText = solution;
             }
-            if (display.innerText !== '0') {
+            if (display.innerText !== '0' && display.innerText !== '-0') {
                 display.innerText += input;
                 break;
             }
-            display.innerText = input;
+            else if (display.innerText == '-0') {
+                    display.innerText = '-' + input;
+                }
+            else {
+                display.innerText = input;
+            }
             equals = false;
             break;
     }
@@ -168,6 +174,7 @@ function clear() {
     firstNum = 0;
     secondNum = 0;
     solution = 0;
+    sign = '+';
     display.innerText = '0';
 }
 
@@ -184,6 +191,21 @@ function backspace() {
     }
 }
 
+function changeSign() {
+    if (equals) {
+        return;
+    }
+    let string = display.innerText;
+    if (sign === '+') {
+        display.innerText = '-' + string;
+        sign = '-';
+    }
+    else {
+        display.innerText = string.slice(1);
+        sign = '+';
+    }
+}
+
 function makeFirstNum() {
     if (firstNum != 0) {
         makeSecondNum();
@@ -192,6 +214,7 @@ function makeFirstNum() {
     }
     firstNum = parseFloat(display.innerText);
     display.innerText = '0';
+    sign = '+';
 }
 
 function makeSecondNum() {
@@ -199,10 +222,20 @@ function makeSecondNum() {
         return;
     }
     secondNum = parseFloat(display.innerText);
+    sign = '+';
 }
 
 function displayResult(a, b, operator) {
     solution = operate(a, b, operator);
-    display.innerText = solution;
+    display.innerText = solution.toFixed(4).replace(/\.0+$/, '');
+    sign = '+';
+    if (display.innerText.length > 14) {
+        display.innerText = 'Too LONG!';
+        solution = 'long';
+        firstNum = 0;
+        secondNum = 0;
+    }
+    else {
     firstNum = parseFloat(solution);
+    }
 }
