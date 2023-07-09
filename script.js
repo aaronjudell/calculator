@@ -162,6 +162,10 @@ function updateDisplay(input) {
 }
 
 function decimal() {
+    if (solution != 0) {
+        solution = 0;
+        display.innerText = solution + '.';
+    }
     let string = display.innerText;
     if (string.includes('.')) {
         return;
@@ -227,7 +231,7 @@ function makeSecondNum() {
 
 function displayResult(a, b, operator) {
     solution = operate(a, b, operator);
-    display.innerText = solution.toFixed(4).replace(/\.0+$/, '');
+    display.innerText = parseFloat(solution.toFixed(4));
     sign = '+';
     if (display.innerText.length > 14) {
         display.innerText = 'Too LONG!';
