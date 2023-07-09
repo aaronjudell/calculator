@@ -126,8 +126,8 @@ function updateDisplay(input) {
         case '+/-':
             changeSign();
             break;
-        case '%':
-
+        case 'CE':
+            clearEntry();
             break;
         case '<-':
             backspace();
@@ -180,6 +180,16 @@ function clear() {
     solution = 0;
     sign = '+';
     display.innerText = '0';
+}
+
+function clearEntry() {
+    if (solution != 0) {
+        return;
+    }
+    else {
+        sign = '+';
+        display.innerText = '0';
+    }
 }
 
 function backspace() {
