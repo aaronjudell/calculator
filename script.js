@@ -48,11 +48,22 @@ function operate(firstNum, secondNum, operator) {
 
 const keys = document.querySelectorAll('.key');
 const display = document.getElementById('display');
+const body = document.body;
 
 keys.forEach(key => {
     key.addEventListener('click', () => {
         updateDisplay(key.textContent);
     });
+});
+
+body.addEventListener('keydown', (e) => {
+    const keyPressed = e.key;
+    const allowedKeys = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.', '+', '-', 'x', '*', '/', 'c', 'C', '=', 'Backspace', 'Enter'];
+    if (!allowedKeys.includes(keyPressed)) {
+        e.preventDefault();
+        return;
+    }
+    updateDisplay(keyPressed);
 });
 
 function updateDisplay(input) {
@@ -90,6 +101,7 @@ function updateDisplay(input) {
             }
             break;
         case 'x':
+        case '*':
             if (operator != 0 && !equals) {
                 makeSecondNum();
                 displayResult(firstNum, secondNum, operator);
@@ -121,6 +133,7 @@ function updateDisplay(input) {
             }
             break;
         case 'C':
+        case 'c':
             clear();
             break;
         case '+/-':
@@ -130,9 +143,11 @@ function updateDisplay(input) {
             clearEntry();
             break;
         case '<-':
+        case 'Backspace':
             backspace();
             break;
         case '=':
+        case 'Enter':
             makeSecondNum();
             displayResult(firstNum, secondNum, operator);
             equals = true;
