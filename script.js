@@ -63,6 +63,12 @@ body.addEventListener('keydown', (e) => {
         e.preventDefault();
         return;
     }
+
+    if (e.target.matches('button') && keyPressed === 'Enter') {
+        e.preventDefault();
+        updateDisplay(keyPressed);
+        return;
+    }
     updateDisplay(keyPressed);
 });
 
