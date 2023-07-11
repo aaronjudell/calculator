@@ -23,7 +23,7 @@ body {
     margin-bottom: 100px;
     border-radius: 25px;
     padding: 25px;
-    background-color:azure
+    background-color:grey;
 }
 
 #display {
@@ -39,7 +39,7 @@ body {
     display: flex;
     flex-direction: column;
     width: 100%;
-    border: 1px solid black;
+    border: 10px solid grey;
     box-sizing: border-box;
 }
 
@@ -57,4 +57,5 @@ body {
     height: 80px;
     width: 50px;
     font-size: 50px;
+    border: 10px solid grey;
 }
